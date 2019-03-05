@@ -10,8 +10,8 @@ function connection(port){
 
     io.on('connection',(socket)=>{
         console.log("made connection");
-        socket.on("request",(data)=>{
-            console.log(data);
+        socket.on("request",(req)=>{
+            console.log(req);
             io.sockets.emit("request_accepted_driver",{data:"Request is accepted by the driver"});
         })
     })
