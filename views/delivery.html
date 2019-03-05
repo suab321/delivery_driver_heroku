@@ -9,9 +9,8 @@
         var socket2=io.connect('https://floating-brushlands-52313.herokuapp.com');
 
         socket2.on("new_delivery_request",(req)=>{
-            console.log("yes");
             console.log(req);
-            socket1.emit("request",req);
+            socket1.emit("request",(req));
         })
     </script>
 </html>
