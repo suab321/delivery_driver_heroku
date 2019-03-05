@@ -15,7 +15,7 @@ function connection(port){
         //console.log(connected_socket);
         connected_socket.on("request",(req)=>{
             console.log(req);
-            io.sockets.emit("request_accepted_driver",req);
+            io.sockets.emit("request_accepted_driver",{data:"Requets is accepted"});
         })
     })
 }
