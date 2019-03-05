@@ -12,9 +12,10 @@ function connection(port){
     io.on('connection',(socket)=>{
         connected_socket=socket
         console.log("made connection");
-        console.log(connected_socket);
+        //console.log(connected_socket);
         connected_socket.on("request",(req)=>{
-            io.sockets.emit("request_accepted_driver",{data:"Request is accepted by the driver"});
+            console.log(req);
+            io.sockets.emit("request_accepted_driver",req);
         })
     })
 }
