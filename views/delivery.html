@@ -10,7 +10,7 @@
 
         socket2.on("new_delivery_request",(req)=>{
             console.log(req);
-            socket1.emit("request",req);
+            socket1.emit("request_accepted",req);
         })
     </script>
 </html>

@@ -1,17 +1,19 @@
 const socket=require('socket.io');
 
 
-const {user_server_link}=require('../urls/links');
+const {perma_Order,temp_Order}=require('../database/db'); 
 
 
-
+var io;
+var connected_socket;
 function connection(port){
-    var io=socket(port);
+    io=socket(port);
 
     io.on('connection',(socket)=>{
+        connected_socket=socket
         console.log("made connection");
-        socket.on("request",(req)=>{
-            console.log(req);
+        console.log(connected_socket.transport.sessionid);
+        connected_socket.on("request",(req)=>{
             io.sockets.emit("request_accepted_driver",{data:"Request is accepted by the driver"});
         })
     })
