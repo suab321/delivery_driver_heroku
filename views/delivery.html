@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <body>
+       <h1> Hey I m driver</h1>
+    </body>
+    <script>
+        var socket1=io.connect('http://localhost:3003');
+        var socket2=io.connect('http://localhost:3002');
+
+        socket2.on("request_from_user",(req)=>{
+            console.log(req);
+            socket1.emit("request",req);
+        })
+    </script>
+</html>
