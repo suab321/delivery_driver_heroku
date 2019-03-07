@@ -12,14 +12,11 @@ mongoose.connect(mongourl,{useNewUrlParser:true},(err,db)=>{
         console.log("database connected");
 })
 
-const notcompleted_Order_Schema=new mongoose.Schema({
-    Order_ID:String,
-    User_ID:String
-})
+ 
 
-const completed_Order_Schema=new mongoose.Schema({
+const Order_Schema=new mongoose.Schema({
+    Order_Id:String,
     User_id:String,
-    Driver_id:String,
     Commodity:String,
     Receving_Address:String,
     Delivery_Address:String,
@@ -29,6 +26,7 @@ const completed_Order_Schema=new mongoose.Schema({
     Recevier_Name:String,
     Receving_Email:String,
     Price:String,
+    isDelivered:{type:Number,default:0},
     Date:String
 })
 
@@ -58,13 +56,12 @@ const perma_schema=new mongoose.Schema({
 
 const temp_model=mongoose.model('temp',temp_schema);
 const perma_model=mongoose.model('perma',perma_schema);
-const temp_Order=mongoose.model('notcompleted_Order_Schema',notcompleted_Order_Schema);
-const perma_Order=mongoose.model('completed_Order_Schema',completed_Order_Schema);
+const Order=mongoose.model('Order',Order_Schema);
 
 module.exports={
     temp:temp_model,
     perma:perma_model,
-    temp_Order,
-    perma_Order,
+    Order,
+    Order,
     mongourl
 }
