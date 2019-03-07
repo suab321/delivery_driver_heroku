@@ -27,6 +27,8 @@ const Order_Schema=new mongoose.Schema({
     Receving_Email:String,
     Price:String,
     isDelivered:{type:Number,default:0},
+    Sender_Otp:String,
+    Recevier_Otp:String,
     Date:String
 })
 
