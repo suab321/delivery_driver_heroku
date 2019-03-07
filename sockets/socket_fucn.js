@@ -1,7 +1,7 @@
 const socket=require('socket.io');
 
 
-const {perma_Order,temp_Order}=require('../database/db'); 
+const {Order}=require('../database/db'); 
 
 
 var io;
@@ -18,8 +18,7 @@ function connection(port){
             var sender_unique=Math.floor(Math.random()*100000);
             var recevier_unique=Math.floor(Math.random()*100000);
             io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
-            
-            const db=new temp_Order
+            const db=new Order
             db.User_id=data.User_id;
             db.Commodity=data.Commodity;
             db.Receving_Address=data.Receving_Address;

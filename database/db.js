@@ -62,6 +62,5 @@ module.exports={
     temp:temp_model,
     perma:perma_model,
     Order,
-    Order,
     mongourl
 }
