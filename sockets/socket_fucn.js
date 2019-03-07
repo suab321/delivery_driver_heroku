@@ -28,7 +28,7 @@ function connection(port){
             db.Recevier_Phone=data.Recevier_Phone;
             db.Recevier_Name=data.Recevier_Name;
             db.Recevier_Email=data.Recevier_Email;
-            db.Price=req.body.Price,
+            db.Price=data.Price,
             db.Sender_Otp=sender_unique;
             db.Recevier_Otp=recevier_unique;
             db.Date=new Date();
