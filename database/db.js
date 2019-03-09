@@ -26,7 +26,7 @@ const Order_Schema=new mongoose.Schema({
     Recevier_Name:String,
     Receving_Email:String,
     Price:String,
-    isDelivered:{type:Number,default:0},
+    CurrentStatus:{type:Number,default:0},
     Sender_Otp:String,
     Recevier_Otp:String,
     Date:String
@@ -53,7 +53,7 @@ const perma_schema=new mongoose.Schema({
     Flag:{type:Number,default:0},
     Date:{type:Date},
     response:{type:String},
-    History:[{Order_id:String}]
+    History:[{Order_id:String,CurrentStatus:{type:Number,default:0}}]
 })
 
 const temp_model=mongoose.model('temp',temp_schema);
