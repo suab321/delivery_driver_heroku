@@ -17,6 +17,7 @@ function connection(port){
             console.log("17 socket_func"+data);
             var sender_unique=Math.floor(Math.random()*100000);
             var recevier_unique=Math.floor(Math.random()*100000);
+            io.sockets.emit("request_accepted_driver",({user,sender_unique,recevier_unique}));
             const db=new Order
             db.User_id=data.User_id;
             db.Commodity=data.Commodity;
@@ -31,9 +32,8 @@ function connection(port){
             db.Sender_Otp=sender_unique;
             db.Recevier_Otp=recevier_unique;
             db.Date=new Date();
-
             db.save().then(user=>{
-                io.sockets.emit("request_accepted_driver",({user,sender_unique,recevier_unique}));
+               
             }).catch(err=>{console.log("38 socket_fucn"+err)});
         })
     })
