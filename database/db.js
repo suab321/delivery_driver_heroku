@@ -15,8 +15,8 @@ mongoose.connect(mongourl,{useNewUrlParser:true},(err,db)=>{
  
 
 const Order_Schema=new mongoose.Schema({
-    Order_Id:String,
     User_id:String,
+    Driver_id:String,
     Commodity:String,
     Receving_Address:String,
     Delivery_Address:String,
@@ -24,9 +24,9 @@ const Order_Schema=new mongoose.Schema({
     Giver_Phone:String,
     Recevier_Phone:String,
     Recevier_Name:String,
-    Receving_Email:String,
+    Recevier_Email:String,
     Price:String,
-    CurrentStatus:{type:Number,default:0},
+    CurrentStatus:{type:Number,default:1},
     Sender_Otp:String,
     Recevier_Otp:String,
     Date:String
