@@ -7,9 +7,21 @@ const {local_link}=require('../urls/links');
 const nodemailer=require('nodemailer');
 const ejs=require('ejs');
 
-
 //developer made function import
 const token=require('../jwt/jwt');
+
+
+
+
+//middleware to extract token from req headers
+const get_token=(req,res,next)=>{
+    const token=req.headers.authorization;
+    if(token !== undefined){
+        req.token=token.split(' ')[1];
+        next();
+    }
+    res.status(401).json({err:"Not authorised"});
+}
 
 const transporter= nodemailer.createTransport({
     service:"gmail",
@@ -153,7 +165,7 @@ router.post('/login',(req,res)=>{
                 perma.findById({_id:user.id},{Password:false}).then(user=>{
                     req.session.user=user._id;
                     const enct=token.generateToken(user._id);
-                   res.status(200).json(enct);
+                   res.status(200).json({key:enct});
                 })
             }
         else
@@ -174,9 +186,11 @@ router.post('/login',(req,res)=>{
 
 
 //reseting password email sending
-router.get('/resetpass/:email',(req,res)=>{
-    console.log(req.params.email)
-    perma.findOne({Email:req.params.email}).then(user=>{
+router.get('/resetpass/:email',get_token,(req,res)=>{
+    console.log(req.params.email);
+    const user_id=token.decodeToken(req.token).user;
+    if(user_id){
+    perma.findOne({_id:user_id}).then(user=>{
         console.log(user)
         if(user){
             jwt.sign({user:user.Email},"suab",(err,token)=>{
@@ -191,6 +205,9 @@ router.get('/resetpass/:email',(req,res)=>{
         console.log(err);
         res.status(200).json({response:"4"});
     })
+  }
+  else
+    res.status(401).json({err:"Not authorised to access it"});
 })
 
 
@@ -215,6 +232,23 @@ router.get('/logout',(req,res)=>{
     }
     else
         res.status(401).json("no session is pending!")
+})
+
+//getting_users data based on token recevied in request
+router.get('/user_details',get_token,(req,res)=>{
+    const user_id=token.decodeToken(req.token).user
+    if(user_id){
+        perma.findById({_id:user_id},{Password:false}).then(user=>{
+            if(user)
+                res.status(200).json(user);
+            else
+                res.status(200).json({err:"No one is available with your credentials"});
+        }).catch(err=>{
+            res.status(400).json({err:"There exist a problem with this credentials"});
+        })
+    }
+    else
+        res.status(401).json("You are not authorised to access data");
 })
 
 
