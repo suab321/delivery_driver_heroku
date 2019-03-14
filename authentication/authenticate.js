@@ -29,7 +29,7 @@ const verfiy=(email,token)=>{
         to:email,
         subject:"Delivery Verification",
         text:"Click the below link for verification",
-        html:'<a href="https://floating-brushlands-52313.herokuapp.com/authentication/verification/'+token+'">'+token+'</a>'
+        html:'<a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
