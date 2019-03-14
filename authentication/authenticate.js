@@ -186,8 +186,8 @@ router.post('/login',(req,res)=>{
 
 
 //reseting password email sending
-router.get('/resetpass/:email',get_token,(req,res)=>{
-    console.log(req.params.email);
+router.get('/resetpass',get_token,(req,res)=>{
+    //console.log(req.params.email);
     const user_id=token.decodeToken(req.token).user;
     if(user_id){
     perma.findOne({_id:user_id}).then(user=>{
