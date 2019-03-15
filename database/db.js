@@ -29,6 +29,7 @@ const Order_Schema=new mongoose.Schema({
     CurrentStatus:{type:Number,default:1},
     Sender_Otp:String,
     Recevier_Otp:String,
+    Weight:String,
     Date:String
 })
 
