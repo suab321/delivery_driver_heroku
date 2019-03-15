@@ -140,17 +140,17 @@ router.get('/verification/:token',(req,res)=>{
                 temp.findOneAndDelete({Email:authdata.user}).then(user=>{
                     const db=new perma
                     console.log("64"+user.IMEI)
-                    db.device_id=user.device_id
-                    db.Name=user.Name
-                    db.Password=user.Password
-                    db.MobileNo=user.MobileNo
-                    db.Email=user.Email
-                    db.IMEI=user.IMEI
-                    db.Flag=user.Flag
-                    db.Date=new Date()
+                    db. D_device_id=user.device_id
+                    db. D_Name=user.Name
+                    db. D_Password=user.Password
+                    db. D_MobileNo=user.MobileNo
+                    db. D_Email=user.Email
+                    db. D_IMEI=user.IMEI
+                    db. D_Flag=user.Flag
+                    db. D_Date=new Date()
                     db.response="1"
-                    db.save().then(user=>{
-                        res.render('verified',{name:user.Name});
+                    db. D_save().then(user=>{
+                        res.render('verified',{name:user. D_Name});
                     })
                 })
             }
@@ -159,13 +159,13 @@ router.get('/verification/:token',(req,res)=>{
 
 //logging in user
 router.post('/login',(req,res)=>{
-    perma.findOne({Email:req.body.Email}).then(user=>{
-        if(req.body.Password === user.Password)
+    perma.findOne({D_Email:req.body.Email}).then(user=>{
+        if(req.body.Password === user.D_Password)
             {
-                perma.findById({_id:user.id},{Password:false}).then(user=>{
+                perma.findById({_id:user.id},{D_Password:false}).then(user=>{
                     req.session.user=user._id;
                     const enct=token.generateToken(user._id);
-                   res.status(200).json({key:enct});
+                   res.status(200).json({key:enct,response:"1"});
                 })
             }
         else
@@ -193,8 +193,8 @@ router.get('/resetpass',get_token,(req,res)=>{
     perma.findOne({_id:user_id}).then(user=>{
         console.log(user)
         if(user){
-            jwt.sign({user:user.Email},"suab",(err,token)=>{
-                resetpass(user.Email,token);
+            jwt.sign({user:user.D_Email},"suab",(err,token)=>{
+                resetpass(user.D_Email,token);
                 res.status(200).json({response:"1"});
             })
         }
@@ -207,7 +207,7 @@ router.get('/resetpass',get_token,(req,res)=>{
     })
   }
   else
-    res.status(401).json({err:"Not authorised to access it"});
+    res.status(401).json({err:"0"});
 })
 
 
@@ -215,7 +215,7 @@ router.get('/resetpass',get_token,(req,res)=>{
 router.post('/ressetingdone/:token',(req,res)=>{
     jwt.verify(req.params.token,"suab",(err,authdata)=>{
         perma.findOneAndUpdate({Email:authdata.user},{Password:req.body.password},{new:true}).then(user=>{
-            res.status(200).json(user);
+            res.status(200).json({msg:"Success"});
         }).catch(err=>{res.send(req.params.email)})
     })
 })
@@ -238,7 +238,7 @@ router.get('/logout',(req,res)=>{
 router.get('/user_details',get_token,(req,res)=>{
     const user_id=token.decodeToken(req.token).user
     if(user_id){
-        perma.findById({_id:user_id},{Password:false}).then(user=>{
+        perma.findById({_id:user_id},{ D_Password:false}).then(user=>{
             if(user)
                 res.status(200).json(user);
             else

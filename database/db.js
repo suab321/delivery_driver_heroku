@@ -44,16 +44,16 @@ const temp_schema=new mongoose.Schema({
     response:{type:String},
 })
 const perma_schema=new mongoose.Schema({
-    device_id:String,
-    Name:String,
-    Password:String,
-    MobileNo:{type:String},
-    Email:{type:String,unique:true},
-    IMEI:{type:String},
-    Flag:{type:Number,default:0},
-    Date:{type:Date},
-    response:{type:String},
-    History:[{Order_id:String,CurrentStatus:{type:Number,default:0}}]
+    D_device_id:String,
+    D_Name:String,
+    D_Password:String,
+    D_MobileNo:{type:String},
+    D_Email:{type:String,unique:true},
+    D_IMEI:{type:String},
+    D_Flag:{type:Number,default:0},
+    D_Date:{type:Date},
+    D_response:{type:String},
+    D_History:[{Order_id:String,CurrentStatus:{type:Number,default:0}}]
 })
 
 const temp_model=mongoose.model('temp',temp_schema);
