@@ -28,6 +28,7 @@ function connection(port){
             db.Delivery_Address=data.Delivery_Address;
             db.Giver_Name=data.Giver_Name;
             db.Giver_Phone=data.Giver_Phone;
+            db.Giver_Email=data.Giver_Email;
             db.Recevier_Phone=data.Recevier_Phone;
             db.Recevier_Name=data.Recevier_Name;
             db.Recevier_Email=data.Recevier_Email;
