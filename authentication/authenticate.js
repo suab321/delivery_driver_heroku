@@ -256,24 +256,9 @@ router.get('/user_details',get_token,(req,res)=>{
 router.get('/order_history',get_token,(req,res)=>{
     const user_id=token.decodeToken(req.token).user;
     if(user_id){
-        perma.findById({_id:user_id}).then(user=>{
-            const orders=user.History.map(i=>{
-                return i.Order_id;
-            })
-            //console.log("283 authenticate.js "+orders);
-            const data=[];
-            console.log(orders);
-           const order1=JSON.stringify(orders);
-            console.log(order1);
-            order.find({}).then(user=>{
-                user.map(i=>{
-                    if(order1.indexOf(i._id) !== -1)
-                        data.push(i);
-                })
-                console.log(data);
-                 res.status(200).json(data);
-            })
-        })
+        order.find({User_id:user_id}).then(user=>{
+            res.status(200).json(user);
+        }).catch(err=>{console.log("261 err authenticate.js "+user)});
     }
     else
         res.status(401).json({err:"1"});
