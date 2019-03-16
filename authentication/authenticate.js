@@ -20,7 +20,8 @@ const get_token=(req,res,next)=>{
         req.token=token.split(' ')[1];
         next();
     }
-    res.status(401).json({err:"Not authorised"});
+    else
+        res.status(401).json({err:"0"});
 }
 
 const transporter= nodemailer.createTransport({
@@ -242,13 +243,13 @@ router.get('/user_details',get_token,(req,res)=>{
             if(user)
                 res.status(200).json(user);
             else
-                res.status(200).json({err:"No one is available with your credentials"});
+                res.status(200).json({err:"1"});
         }).catch(err=>{
-            res.status(400).json({err:"There exist a problem with this credentials"});
+            res.status(400).json({err:"2"});
         })
     }
     else
-        res.status(401).json("You are not authorised to access data");
+        res.status(401).json({err:"3"});
 })
 
 
