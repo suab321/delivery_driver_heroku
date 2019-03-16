@@ -17,7 +17,7 @@ function connection(port){
             console.log("17 socket_func"+data.Name);
             var sender_unique=Math.floor(Math.random()*100000);
             var recevier_unique=Math.floor(Math.random()*100000);
-            io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
+            io.sockets.emit("request_accepted_driver",{data,sender_unique,recevier_unique});
             const db=new Order
             db.User_id=data.User_id;
             db.Name=data.Name;
