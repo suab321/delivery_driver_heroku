@@ -14,7 +14,7 @@ function connection(port){
         console.log("made connection");
         //console.log(connected_socket);
         connected_socket.on("request",(data)=>{
-            console.log("17 socket_func"+data);
+            console.log("17 socket_func"+data.Name);
             var sender_unique=Math.floor(Math.random()*100000);
             var recevier_unique=Math.floor(Math.random()*100000);
             io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
