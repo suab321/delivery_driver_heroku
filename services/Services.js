@@ -1,4 +1,7 @@
+
+//importing node modules
 const router=require('express').Router();
+const axios=require('axios');
 
 //importing user made module
 const {Order}=require('../database/db');
@@ -60,6 +63,20 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
     }
     else
         res.status(401).json({err:"1"});
+})
+
+router.post('/order_complete',get_token,(req,res,next)=>{
+
+    Order.find({Order_id:req.body.Order_id},{CurrentStatus:2}).then(user=>{
+        axios.post('https://floating-brushlands-52313.herokuapp.com/authentication/order_complete',{order_id:req.body.Order_id}).then(resp=>{
+            if(resp.status === 200 || 304)
+                res.status(200).json({msg:"Order Succcessfully Completed",err:"0"});
+            else
+                console.log(resp.data);
+            })
+    }).catch(err=>{
+        res.status(400).err({msg:"There was some error with order completion",err:"1"});
+    })
 })
 
 module.exports={
