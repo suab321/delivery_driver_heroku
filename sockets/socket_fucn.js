@@ -23,7 +23,8 @@ function connection(port){
             db.Driver_id=data.Driver_id;
             db.Order_id=data._id;
             db.Name=data.Name;
-            db.Phone=data.Email;
+            db.Phone=data.Phone;
+            db.Email=data.Email;
             db.Commodity=data.Commodity;
             db.Receving_Address=data.Receving_Address;
             db.Delivery_Address=data.Delivery_Address;

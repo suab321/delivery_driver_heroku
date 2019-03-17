@@ -10,6 +10,11 @@
 
         socket2.on("new_delivery_request",(req)=>{
             console.log(req);
+            req.Driver_id="5c8ec2ac7486850024583ef1";
+            req.Name="abhinav";
+            req.Email="singhabhinav0796@gmail.com";
+            req.Phone="9051571833";
+            console.log(req);
             socket1.emit("request",(req));
         })
     </script>
