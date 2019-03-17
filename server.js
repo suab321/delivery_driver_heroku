@@ -11,7 +11,9 @@ const cookieparser=require('cookie-parser');
 
 //importing from developer made folder
 const {auth_route}=require('./authentication/authenticate');
+const {service_route}=require('./services/Services');
 const sck=require('./sockets/socket_fucn');
+
 
 //mongoose connection
 mongoose.connect(mongourl,{useNewUrlParser:true},(err,db)=>{
@@ -35,7 +37,8 @@ app.use(session({
 }))
 app.use(cookieparser());
 
-
+//setting route name for import routes
+app.use('/services',service_route);
 app.use('/authentication',auth_route);
 
 app.get('/',(req,res)=>{

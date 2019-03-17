@@ -20,9 +20,10 @@ function connection(port){
             io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
             const db=new Order
             db.User_id=data.User_id;
+            db.Driver_id=data.Driver_id;
+            db.Order_id=data._id;
             db.Name=data.Name;
             db.Phone=data.Email;
-            db.Driver_id=data._id
             db.Commodity=data.Commodity;
             db.Receving_Address=data.Receving_Address;
             db.Delivery_Address=data.Delivery_Address;
