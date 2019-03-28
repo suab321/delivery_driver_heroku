@@ -47,6 +47,7 @@ function connection(port){
 
         connected_socket.on("driver_from_driver_driver_frontend",data=>{
             console.log(data);
+            io.sockets.emit('from_driver_to_user_frontend',data);
         })
     })
 }
