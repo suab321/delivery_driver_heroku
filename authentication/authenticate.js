@@ -264,6 +264,13 @@ router.get('/order_history',get_token,(req,res)=>{
         res.status(401).json({err:"1"});
 })
 
+//giivng driver list users_backend
+router.get('/get_driver',(req,res)=>{
+    perma.find({}).then(user=>{
+        console.log(user)
+        res.status(200).json(user)});
+})
+
 
 module.exports={
     auth_route:router
