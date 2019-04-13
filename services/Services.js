@@ -43,13 +43,13 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
 
 
 //checking receviers otp
-router.post('/check_sender_otp',get_token,(req,res)=>{
+router.post('/check_recevier_otp',get_token,(req,res)=>{
     const user_id=decodeToken(req.token).user;
     if(user_id){
         Order.find({Order_id:req.body.Order_id}).then(user=>{
             if(user){
                 if(user.Recevier_Otp === req.body.otp){
-                    Order.find({Order_id:req.body.Order_id},{CurrentStatus:2}).then(user=>{
+                    Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
                         res.status(200).json({msg:"Recvier Otp has match Successfully",err:"0"});
                     })
                 }

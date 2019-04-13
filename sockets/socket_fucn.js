@@ -38,7 +38,7 @@ function connection(port){
             db.Sender_Otp=sender_unique;
             db.Recevier_Otp=recevier_unique;
             db.Weight=data.Weight
-            db.PreferredTime=data.PreferredTime;
+            db.Preferred_time=data.Preferred_time;
             db.Date=new Date();
             db.save().then(user=>{
                console.log("40 func"+user);

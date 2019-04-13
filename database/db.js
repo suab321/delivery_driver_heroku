@@ -35,7 +35,7 @@ const Order_Schema=new mongoose.Schema({
     Sender_Otp:String,
     Recevier_Otp:String,
     Weight:String,
-    PreferredTime:String,
+    Preferred_time:String,
     Date:String
 })
 
