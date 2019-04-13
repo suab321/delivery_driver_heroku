@@ -189,6 +189,32 @@ router.post('/login',(req,res)=>{
 })
 
 
+//updating users profile
+router.post('/update/:what/:value',get_token,(req,res)=>{
+    const user_id=token.decodeToken(req.token).user;
+    if(user_id){
+        switch(req.params.what){
+            case 1:
+            perma.findByIdAndUpdate({_id:user_id},{Name:req.params.value},{new:true}).then(user=>{
+                res.status(200).res({response:"1"});
+            }).catch(err=>{
+                res.status(400).json({response:"2"});
+            })
+                break;
+            case 2:
+            perma.findByIdAndUpdate({_id:user_id},{MobileNo:req.params.value},{new:true}).then(user=>{
+                res.status(200).res({response:"1"});
+            }).catch(err=>{
+                res.status(400).json({response:"2"});
+            })
+                break;
+        }
+    }
+})
+//updating users profile ended
+
+
+
 //reseting password email sending
 router.get('/resetpass',get_token,(req,res)=>{
     //console.log(req.params.email);
