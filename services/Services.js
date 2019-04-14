@@ -65,6 +65,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
         res.status(401).json({err:"1"});
 })
 
+//route when the order completes//
 router.post('/order_complete',get_token,(req,res,next)=>{
 
     Order.find({Order_id:req.body.Order_id},{CurrentStatus:2}).then(user=>{
@@ -76,6 +77,15 @@ router.post('/order_complete',get_token,(req,res,next)=>{
             })
     }).catch(err=>{
         res.status(400).err({msg:"There was some error with order completion",err:"1"});
+    })
+})
+//ended route when order completes//
+
+router.get('/delete_order/:order_id',(req,res)=>{
+    Order.findOneAndDelete({Order_id:req.params.order_id}).then(user=>{
+        res.status(200).json({response:"1"});
+    }).catch(err=>{
+        res.status(400).json({response:"0"});
     })
 })
 
