@@ -50,19 +50,19 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
             if(user){
                 if(user.Recevier_Otp === req.body.otp){
                     Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
-                        res.status(200).json({msg:"Recvier Otp has match Successfully",err:"0"});
+                        res.status(200).json({msg:"Recvier Otp has match Successfully",response:"1"});
                     })
                 }
                 else
-                    res.status(401).json({msg:"OTP did not match try again",err:"1"});
+                    res.status(401).json({msg:"OTP did not match try again",response:"2"});
             }
         }).catch(err=>{
             console.log("31 Services.js "+err);
-            res.status(400).json({msg:"We cannot evaluate your order",err:"2"});
+            res.status(400).json({msg:"We cannot evaluate your order",response:"3"});
         })
     }
     else
-        res.status(401).json({err:"1"});
+        res.status(401).json({response:"4"});
 })
 
 //route when the order completes//
