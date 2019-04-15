@@ -51,7 +51,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
             if(user){
                 if(user.Recevier_Otp === req.body.otp){
                     Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
-                        res.status(200).json({msg:"Recvier Otp has match Successfully",response:"1"});
+                        res.redirect('/order_complete');
                     })
                 }
                 else
