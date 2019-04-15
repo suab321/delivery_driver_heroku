@@ -213,10 +213,12 @@ router.post('/update/:what/:value',get_token,(req,res)=>{
 
 
 //reseting password email sending
-router.get('/resetpass/:email',(req,res)=>{
-    //console.log("209 authenticate.js"+req.params.email);
-    perma.findOne({Email:req.params.email}).then(user=>{
-        console.log(user);
+router.get('/resetpass',get_token,(req,res)=>{
+    //console.log(req.params.email);
+    const user_id=token.decodeToken(req.token).user;
+    if(user_id){
+    perma.findOne({_id:user_id}).then(user=>{
+        console.log(user)
         if(user){
             jwt.sign({user:user.Email},"suab",(err,token)=>{
                 resetpass(user.Email,token);
@@ -230,8 +232,10 @@ router.get('/resetpass/:email',(req,res)=>{
         console.log(err);
         res.status(200).json({response:"4"});
     })
+  }
+  else
+    res.status(401).json({err:"0"});
 })
-//route email sending ended//
 
 
 //link for new password req coming here from frontend ejs
@@ -278,7 +282,7 @@ router.get('/user_details',get_token,(req,res)=>{
 router.get('/order_history',get_token,(req,res)=>{
     const user_id=token.decodeToken(req.token).user;
     if(user_id){
-        order.findById({_id:user_id}).then(user=>{
+        order.findById({User_id:user_id}).then(user=>{
             res.status(200).json(user);
         }).catch(err=>{console.log("261 err authenticate.js "+user)});
     }
