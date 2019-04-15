@@ -30,15 +30,15 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
                     })
                 }
                 else
-                    res.status(401).json({msg:"OTP did not match try again",err:"1"});
+                    res.status(401).json({msg:"OTP did not match try again",response:"2"});
             }
         }).catch(err=>{
             console.log("31 Services.js "+err);
-            res.status(400).json({msg:"We can evaluate your order",err:"2"});
+            res.status(400).json({msg:"We cant evaluate your order",err:"3"});
         })
     }
     else
-        res.status(401).json({err:"1"});
+        res.status(401).json({err:"4"});
 })
 
 
