@@ -40,6 +40,7 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
     else
         res.status(401).json({err:"4"});
 })
+//ended route checking sender otp//
 
 
 //checking receviers otp
@@ -64,6 +65,8 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
     else
         res.status(401).json({response:"4"});
 })
+//ended route checking recevier otp//
+
 
 //route when the order completes//
 router.post('/order_complete',get_token,(req,res,next)=>{
