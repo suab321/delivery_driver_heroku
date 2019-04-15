@@ -26,7 +26,7 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
             if(user){
                 if(user.Sender_Otp === req.body.otp){
                     Order.find({Order_id:req.body.Order_id},{CurrentStatus:2}).then(user=>{
-                        res.status(200).json({msg:"Senders Otp has match Successfully",err:"0"});
+                        res.status(200).json({msg:"Senders Otp has match Successfully",response:"1"});
                     })
                 }
                 else
@@ -68,7 +68,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
 //route when the order completes//
 router.post('/order_complete',get_token,(req,res,next)=>{
 
-    Order.find({Order_id:req.body.Order_id},{CurrentStatus:2}).then(user=>{
+    Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
         axios.post('https://floating-brushlands-52313.herokuapp.com/authentication/order_complete',{order_id:req.body.Order_id}).then(resp=>{
             if(resp.status === 200 || 304)
                 res.status(200).json({msg:"Order Succcessfully Completed",err:"0"});
