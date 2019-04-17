@@ -2,7 +2,7 @@
 const express=require('express');
 const router=express.Router();
 const jwt=require('jsonwebtoken');
-const {temp,perma,order}=require('../database/db');
+const {temp,perma,Order}=require('../database/db');
 const {local_link}=require('../urls/links');
 const nodemailer=require('nodemailer');
 const ejs=require('ejs');
@@ -282,13 +282,14 @@ router.get('/user_details',get_token,(req,res)=>{
 router.get('/order_history',get_token,(req,res)=>{
     const user_id=token.decodeToken(req.token).user;
     if(user_id){
-        order.findById({User_id:user_id}).then(user=>{
+        Order.findById({User_id:user_id}).then(user=>{
             res.status(200).json(user);
         }).catch(err=>{console.log("261 err authenticate.js "+user)});
     }
     else
         res.status(401).json({err:"1"});
 })
+//getting order history ended//
 
 //giivng driver list users_backend
 router.get('/get_driver',(req,res)=>{
