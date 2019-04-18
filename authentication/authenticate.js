@@ -284,7 +284,7 @@ router.get('/order_history',get_token,(req,res)=>{
     if(user_id){
         Order.findById({User_id:user_id}).then(user=>{
             res.status(200).json(user);
-        }).catch(err=>{console.log("261 err authenticate.js "+user)});
+        }).catch(err=>{console.log("261 err authenticate.js "+err)});
     }
     else
         res.status(401).json({err:"1"});
