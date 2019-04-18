@@ -1,7 +1,9 @@
 const socket=require('socket.io');
+const axios=require('axios');
 
 
 const {Order}=require('../database/db'); 
+const {user_server_link}=require('../urls/links')
 
 
 var io;
@@ -17,7 +19,12 @@ function connection(port){
             console.log("17 socket_func"+data.Name);
             var sender_unique=Math.floor(Math.random()*100000);
             var recevier_unique=Math.floor(Math.random()*100000);
-            
+            axios.get(`${user_server_link}/socket/connected_users_list`).then(res=>{
+                res.data.map(i=>{
+                    if(i.user_id === data.User_id)
+                        io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
+                })
+            })
             io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
             const db=new Order
             db.User_id=data.User_id;
