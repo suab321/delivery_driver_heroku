@@ -22,7 +22,7 @@ function connection(port){
             axios.get(`${user_server_link}/socket/connected_users_list`).then(res=>{
                 res.data.map(i=>{
                     if(i.user_id === data.User_id)
-                        io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
+                        io.to(`${i.socket_id}`).emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
                 })
             })
             io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
