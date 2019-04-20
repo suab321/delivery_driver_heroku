@@ -42,7 +42,7 @@ const verfiy=(email,token)=>{
         to:email,
         subject:"Delivery Verification",
         text:"Click the below link for verification",
-        html:'<a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a>'
+        html:'<p>To activate your Stowaway account,</p><p>please click on the following link or</p><p>copy and paste the url into your</p><p>browser window:</p><br><a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a><br><p>After you activate your account,you will be able to access your account in</p><p>the Stowaway Application and enjoy</p><p>the experience first hand!</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
@@ -62,7 +62,7 @@ const resetpass=(email,token)=>{
         to:email,
         subject:"Deliver Reset password",
         text:"Click the link for restting password",
-        html:'<a href="https://floating-brushlands-52313.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a>'
+        html:'<p>To reset your Stowaway Account,</p><p>please click on the following link or copy and paste the URL into your</p><p>browser window</p><br><a href="https://fast-reef-53121.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a><br><p>After you change the accounts password,</p><p>you will be able to change your password and log in to your account</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
