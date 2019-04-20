@@ -25,8 +25,8 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
         Order.find({Order_id:req.body.Order_id}).then(user=>{
             if(user){
                 if(user.Sender_Otp === req.body.otp){
-                    Order.find({Order_id:req.body.Order_id},{CurrentStatus:2}).then(user=>{
-                        res.status(200).json({msg:"Senders Otp has match Successfully",response:"1"});
+                    Order.find({Order_id:req.body.Order_id},{CurrentStatus:2},{new:true}).then(user=>{
+                        res.status(200).json(user);
                     })
                 }
                 else
