@@ -24,8 +24,8 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
     console.log(req.body.otp);
     if(user_id){
         Order.find({Order_id:req.body.Order_id}).then(user=>{
+            console.log(user)
             if(user){
-                console.log(otp);
                 if(user.Sender_Otp == req.body.otp){
                     Order.find({Order_id:req.body.Order_id},{CurrentStatus:2},{new:true}).then(user=>{
                         res.status(200).json(user);
