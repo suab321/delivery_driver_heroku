@@ -4,7 +4,7 @@ const mongoose=require('mongoose');
 
 
 
-const mongourl="ongodb://suab:Suab123@cluster0-shard-00-00-ynffd.mongodb.net:27017,cluster0-shard-00-01-ynffd.mongodb.net:27017,cluster0-shard-00-02-ynffd.mongodb.net:27017/delivery_driver?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
+const mongourl="mongodb://suab:Suab123@cluster0-shard-00-00-ynffd.mongodb.net:27017,cluster0-shard-00-01-ynffd.mongodb.net:27017,cluster0-shard-00-02-ynffd.mongodb.net:27017/delivery_driver?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
 mongoose.connect(mongourl,{useNewUrlParser:true},(err,db)=>{
     if(err)
         console.log("db.js 11"+err);
