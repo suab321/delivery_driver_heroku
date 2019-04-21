@@ -73,7 +73,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
 
 //function when the order completes//
 const order_complete=(Order_id)=>{
-    Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
+    Order.find({Order_id:Order_id},{CurrentStatus:3}).then(user=>{
         axios.post('https://floating-brushlands-52313.herokuapp.com/authentication/order_complete',{order_id:Order_id}).then(resp=>{
             if(resp.status === 200 || 304)
                 res.status(200).json({msg:"Order Succcessfully Completed",err:"0"});
