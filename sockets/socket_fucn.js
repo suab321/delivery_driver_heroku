@@ -51,7 +51,10 @@ function connection(port){
             db.Sender_Otp=sender_unique;
             db.Recevier_Otp=recevier_unique;
             db.Weight=data.Weight
-            db.Preferred_time=data.Preferred_time;
+            db.Pickup_Date=data.Pickup_Date;
+            db.Height=data.Height;
+            db.Length=data.Length;
+            db.Width=data.Width;
             db.Date=new Date();
             db.save().then(user=>{
                console.log("40 func"+user);

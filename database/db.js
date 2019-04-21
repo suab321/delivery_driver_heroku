@@ -35,8 +35,12 @@ const Order_Schema=new mongoose.Schema({
     Sender_Otp:String,
     Recevier_Otp:String,
     Weight:String,
-    Preferred_time:String,
-    Date:String
+    Date:String,
+    Pickup_Date:String,
+    Landmark:String,
+    Height:String,
+    Length:String,
+    Width:String
 })
 
 const temp_schema=new mongoose.Schema({
