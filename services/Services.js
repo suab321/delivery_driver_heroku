@@ -52,8 +52,8 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
         Order.find({Order_id:req.body.Order_id}).then(user=>{
             if(user){
                 if(user[0].Recevier_Otp === req.body.otp){
-                    Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
-                        res.redirect('/order_complete');
+                    Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3},{new:true}).then(user=>{
+                        res.status(200).json(user);
                     })
                 }
                 else
