@@ -18,7 +18,7 @@ function connection(port){
         //console.log(connected_socket);
         connected_socket.on("request",(data)=>{
             console.log("17 socket_func"+data.Name);
-            console.log("Order _id is "+data._id);
+            console.log("Order _id is "+data.Order_id);
             var sender_unique=Math.floor(Math.random()*100000);
             var recevier_unique=Math.floor(Math.random()*100000);
             // axios.get(`${user_server_link}/socket/connected_users_list`).then(res=>{
@@ -34,7 +34,7 @@ function connection(port){
             const db=new Order
             db.User_id=data.User_id;
             db.Driver_id=data.Driver_id;
-            db.Order_id=data._id;
+            db.Order_id=data.Order_id;
             db.Name=data.Name;
             db.Phone=data.Phone;
             db.Email=data.Email;
