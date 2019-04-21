@@ -53,6 +53,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
             if(user){
                 if(user[0].Recevier_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3},{new:true}).then(user=>{
+                        order_complete(req.body.Order_id);
                         res.status(200).json(user);
                     })
                 }
@@ -70,11 +71,10 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
 //ended route checking recevier otp//
 
 
-//route when the order completes//
-router.post('/order_complete',(req,res,next)=>{
-
+//function when the order completes//
+const order_complete=(Order_id)=>{
     Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
-        axios.post('https://floating-brushlands-52313.herokuapp.com/authentication/order_complete',{order_id:req.body.Order_id}).then(resp=>{
+        axios.post('https://floating-brushlands-52313.herokuapp.com/authentication/order_complete',{order_id:Order_id}).then(resp=>{
             if(resp.status === 200 || 304)
                 res.status(200).json({msg:"Order Succcessfully Completed",err:"0"});
             else
@@ -83,8 +83,8 @@ router.post('/order_complete',(req,res,next)=>{
     }).catch(err=>{
         res.status(400).err({msg:"There was some error with order completion",err:"1"});
     })
-})
-//ended route when order completes//
+}
+//ended function when order completes//
 
 router.get('/delete_order/:order_id',(req,res)=>{
     Order.findOneAndDelete({Order_id:req.params.order_id}).then(user=>{
