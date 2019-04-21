@@ -6,6 +6,7 @@ const axios=require('axios');
 //importing user made module
 const {Order}=require('../database/db');
 const {generateToken,decodeToken}=require('../jwt/jwt');
+const {user_server_link}=require('../urls/links')
 
 const get_token=(req,res,next)=>{
     if(req.headers.authorization !== undefined){
@@ -28,7 +29,11 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
             if(user){
                 if(user[0].Sender_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:2},{new:true}).then(user=>{
-                        res.status(200).json(user);
+                        axios.get(`${user_server_link}/authentication/order_status_update/${req.body.Order_id}/2`).then(resp1=>{
+                            res.status(200).json(user);
+                        }).catch(err=>{
+                            res.status(400).json({response:"error updating your status",response:"0"});
+                        })
                     })
                 }
                 else
@@ -53,8 +58,11 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
             if(user){
                 if(user[0].Recevier_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3},{new:true}).then(user=>{
-                        order_complete(req.body.Order_id);
-                        res.status(200).json(user);
+                        var x=order_complete(req.body.Order_id);
+                        if(x)
+                            res.status(200).json(user);
+                        else
+                            res.status(400).json({response:"There was an error upadting your order",response:"0"})
                     })
                 }
                 else
@@ -73,15 +81,16 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
 
 //function when the order completes//
 const order_complete=(Order_id)=>{
-    Order.find({Order_id:Order_id},{CurrentStatus:3}).then(user=>{
-        axios.post('https://floating-brushlands-52313.herokuapp.com/authentication/order_complete',{order_id:Order_id}).then(resp=>{
+    Order.find({Order_id:Order_id},{CurrentStatus:3},{new:true}).then(user=>{
+        axios.get(`${user_server_link}/authentication/order_status_update/${Order_id}/3`,{order_id:Order_id}).then(resp=>{
             if(resp.status === 200 || 304)
-                res.status(200).json({msg:"Order Succcessfully Completed",err:"0"});
+                return user;
             else
-                console.log(resp.data);
+                return 0;
             })
     }).catch(err=>{
-        res.status(400).err({msg:"There was some error with order completion",err:"1"});
+        console.log(err);
+        return 0;
     })
 }
 //ended function when order completes//
