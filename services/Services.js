@@ -52,7 +52,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
         Order.find({Order_id:req.body.Order_id}).then(user=>{
             if(user){
                 if(user.Recevier_Otp === req.body.otp){
-                    Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
+                    Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
                         res.redirect('/order_complete');
                     })
                 }
@@ -71,7 +71,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
 
 
 //route when the order completes//
-router.post('/order_complete',get_token,(req,res,next)=>{
+router.post('/order_complete',(req,res,next)=>{
 
     Order.find({Order_id:req.body.Order_id},{CurrentStatus:3}).then(user=>{
         axios.post('https://floating-brushlands-52313.herokuapp.com/authentication/order_complete',{order_id:req.body.Order_id}).then(resp=>{
