@@ -4,7 +4,7 @@ const router=require('express').Router();
 const axios=require('axios');
 
 //importing user made module
-const {Order}=require('../database/db');
+const {Order,perma}=require('../database/db');
 const {generateToken,decodeToken}=require('../jwt/jwt');
 const {user_server_link}=require('../urls/links')
 
@@ -95,6 +95,7 @@ const order_complete=(Order_id)=>{
 }
 //ended function when order completes//
 
+//route to delete the order when a user cancels a order//
 router.get('/delete_order/:order_id',(req,res)=>{
     Order.findOneAndDelete({Order_id:req.params.order_id}).then(user=>{
         res.status(200).json({response:"1"});
@@ -102,6 +103,26 @@ router.get('/delete_order/:order_id',(req,res)=>{
         res.status(400).json({response:"0"});
     })
 })
+//route to delete order ended//
+
+
+
+//route to get the pending orders list//
+router.get('/pending_order',get_token,(req,res)=>{
+    const user_id=decodeToken(req.token).user;
+    if(user_id){
+        perma.findById({_id:user_id}).then(user=>{
+            axios.get(`${user_server_link}/authentication/pending_order`).then(res1=>{
+                res.status(200).json(res1.data);
+            })
+        }).catch(err=>{
+            res.status(400).json({msg:"You are not valid user",response:"1"});
+        })
+    }
+    else
+        res.status(400).json({msg:"You are not authenticated to use this route",response:"2"});
+})
+//route to get the pending order list ended//
 
 module.exports={
    service_route:router
