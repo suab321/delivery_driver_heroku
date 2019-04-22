@@ -30,7 +30,7 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
                 if(user[0].Sender_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:2},{new:true}).then(user=>{
                         axios.get(`${user_server_link}/authentication/order_status_update/${req.body.Order_id}/2`).then(resp1=>{
-                            res.status(200).json(user);
+                            res.status(200).json({response:"0"});
                         }).catch(err=>{
                             res.status(400).json({response:"error updating your status",response:"0"});
                         })
@@ -60,7 +60,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3},{new:true}).then(user=>{
                         var x=order_complete(req.body.Order_id);
                         if(x)
-                            res.status(200).json(user);
+                            res.status(200).json({response:"0"});
                         else
                             res.status(400).json({response:"There was an error upadting your order",response:"0"})
                     })
