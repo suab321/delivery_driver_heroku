@@ -42,7 +42,7 @@ const verfiy=(email,token)=>{
         to:email,
         subject:"Activte your Stowaway Account by verifying the link",
         text:"Click the below link for verification",
-        html:'<p>To activate your Stowaway account,</p><h5>please click on the following link or</h5><h5>copy and paste the url into your</h5><h5>browser window:</h5><br><a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a><br><h5>After you activate your account,you will be able to access your account in</h5><h5>the Stowaway Application and enjoy</h5><h5>the experience first hand!</h5>'
+        html:'<p>To activate your Stowaway account,</p><p>please click on the following link or copy and paste the url into your browser window:<a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a>After you activate your account,you will be able to access your account in the Stowaway Application and enjoy the experience first hand!</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
@@ -62,7 +62,7 @@ const resetpass=(email,token)=>{
         to:email,
         subject:"Reset your Stowaway Account Password by verifying the link",
         text:"Click the link for restting password",
-        html:'<p>To reset your Stowaway Account,</p><h5>please click on the following link or copy and paste the URL into your</h5><h5>browser window</h5><br><a href="https://fast-reef-53121.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a><br><h5>After you change the accounts password,</h5><h5>you will be able to change your password and log in to your account</h5>'
+        html:'<p>To reset your Stowaway Account,</p><p>please click on the following link or copy and paste the URL into your browser window <a href="https://fast-reef-53121.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a> After you change the accounts password, you will be able to change your password and log in to your account</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
