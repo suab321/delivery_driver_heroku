@@ -56,6 +56,7 @@ function connection(port){
             db.Length=data.Length;
             db.Width=data.Width;
             db.Date=new Date();
+            db.Order_Stamp=Date.now();
             db.save().then(user=>{
                console.log("40 func"+user);
             }).catch(err=>{console.log("38 socket_fucn"+err)});
