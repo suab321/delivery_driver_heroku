@@ -6,7 +6,8 @@ const axios=require('axios');
 //importing user made module
 const {Order,perma}=require('../database/db');
 const {generateToken,decodeToken}=require('../jwt/jwt');
-const {user_server_link}=require('../urls/links')
+const {user_server_link}=require('../urls/links');
+const {notify_user}=require('../FCM/Noti')
 
 const get_token=(req,res,next)=>{
     if(req.headers.authorization !== undefined){
@@ -29,6 +30,7 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
             if(user){
                 if(user[0].Sender_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:2},{new:true}).then(user=>{
+                        notify_user(user);
                         axios.get(`${user_server_link}/authentication/order_status_update/${req.body.Order_id}/2`).then(resp1=>{
                             res.status(200).json({response:"0"});
                         }).catch(err=>{
@@ -114,7 +116,7 @@ router.get('/pending_order',get_token,(req,res)=>{
         perma.findById({_id:user_id}).then(user=>{
             axios.get(`${user_server_link}/authentication/pending_order`).then(res1=>{
                 res.status(200).json(res1.data);
-            })
+            }).catch(err=>{console.log(err)})
         }).catch(err=>{
             res.status(400).json({msg:"You are not valid user",response:"1"});
         })
