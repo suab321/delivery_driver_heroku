@@ -48,7 +48,7 @@ function connection(port){
             db.Recevier_Phone=data.Recevier_Phone;
             db.Recevier_Name=data.Recevier_Name;
             db.Recevier_Email=data.Recevier_Email;
-            db.Price=data.Price,
+            db.Price=data.Price*0.2,
             db.Sender_Otp=sender_unique;
             db.Recevier_Otp=recevier_unique;
             db.Weight=data.Weight
