@@ -167,6 +167,7 @@ router.post('/login',(req,res)=>{
                     req.session.user=user._id;
                     const enct=token.generateToken(user._id);
                    res.status(200).json({key:enct,response:"1"});
+                   perma.findByIdAndUpdate({_id:user._id},{device_id:req.body.device_id}).then(user=>{}).catch(err=>{console.log(err)});
                 })
             }
         else
