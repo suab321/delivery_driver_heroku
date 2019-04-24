@@ -4,7 +4,8 @@ const axios=require('axios');
 
 
 const {Order}=require('../database/db'); 
-const {user_server_link}=require('../urls/links')
+const {user_server_link}=require('../urls/links');
+const {notify_user}=require('../FCM/Noti')
 
 
 var io;
@@ -58,6 +59,7 @@ function connection(port){
             db.Date=new Date();
             db.Order_Stamp=Date.now();
             db.save().then(user=>{
+                notify_user(user,`Your Order was accepted by ${user.Name} is on his way.Contact him on ${user.Phone}`);
                console.log("40 func"+user);
             }).catch(err=>{console.log("38 socket_fucn"+err)});
         })

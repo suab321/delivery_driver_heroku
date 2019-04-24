@@ -7,13 +7,13 @@ var fcm=new FCM(serverKey);
 const {user_server_link}=require('../urls/links')
 
 //function to send notification to //
-function notify_user(user){
+function notify_user(user,body){
     axios.get(`${user_server_link}/authentication/get_user`,{id:user.User_id}).then(res=>{
         var message={
             to:res.data[0].device_id,
             notification:{
                 title:"Stowaway",
-                body:`Your Order to ${user.Recevier_Name} has been started By ${user.Name}`
+                body:body
             }
         }
         fcm.send(menubar,(err,success)=>{
@@ -24,6 +24,7 @@ function notify_user(user){
         })
     })
 }
+//function ends//
 
 module.exports={
     notify_user
