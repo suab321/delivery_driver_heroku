@@ -30,7 +30,7 @@ router.post('/check_sender_otp',get_token,(req,res)=>{
             if(user){
                 if(user[0].Sender_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:2},{new:true}).then(user=>{
-                        notify_user(user,`Your order has been pickup by ${user.Name} which is ${user.Commodity} and will be delivered to ${user.Recevier_Name}`);
+                        notify_user(user,`Your order has been pickup by Driver ${user.Name} which is ${user.Commodity} and will be delivered to ${user.Recevier_Name}`);
                         axios.get(`${user_server_link}/authentication/order_status_update/${req.body.Order_id}/2`).then(resp1=>{
                             res.status(200).json({response:"0"});
                         }).catch(err=>{
@@ -60,7 +60,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
             if(user){
                 if(user[0].Recevier_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3},{new:true}).then(user=>{
-                        notify_user(user,`Your order has been recvied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by ${user.Name}`);
+                        notify_user(user,`Your order has been recvied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by Driver ${user.Name}`);
                         var x=order_complete(req.body.Order_id);
                         if(x)
                             res.status(200).json({response:"0"});
