@@ -31,6 +31,7 @@ const Order_Schema=new mongoose.Schema({
     Recevier_Name:String,
     Recevier_Email:String,
     Price:String,
+    Earning:String,
     CurrentStatus:{type:Number,default:1},
     Sender_Otp:String,
     Recevier_Otp:String,
