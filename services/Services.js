@@ -132,6 +132,16 @@ router.get('/order',(req,res)=>{
 })
 //route ended///
 
+
+//route to get pending orders
+router.get('/pending_order',(req,res)=>{
+    Order.find({}).then(user=>{
+        res.status(200).json(user);
+    }).catch(err=>{
+        res.status(400).json(err);
+    })
+})
+//route ended
 module.exports={
    service_route:router
 }
