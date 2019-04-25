@@ -18,7 +18,7 @@ function notify_user(user,body){
                 body:body
             }
         }
-        fcm.send(menubar,(err,success)=>{
+        fcm.send(message,(err,success)=>{
             if(err)
                 console.log(err);
             else
