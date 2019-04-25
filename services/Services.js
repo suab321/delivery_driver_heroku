@@ -145,6 +145,28 @@ router.get('/pending_order',(req,res)=>{
     })
 })
 //route ended
+
+
+//route to individual orders//
+router.get('/get_order',get_token,(req,res)=>{
+    const user_id=decodeToken(req.token).user;
+    if(user_id){
+        perma.findById({_id:user_id}).then(user=>{
+            Order.findById({_id:req.body.Order_id}).then(user=>{
+                res.status(200).json(user);
+            }).catch(err=>{
+                console.log(err);
+                res.status(400).json({msg:"error fetching data",response:"1"});
+            })
+        }).catch(err=>{
+            console.log(err);
+            res.status(400).json({msg:"You are not a valid user",response:"2"});
+        })
+    }
+    else
+        res.status(400).json({msg:"You are not authenticated to use this route",response:"3"});
+})
+//route ended///
 module.exports={
    service_route:router
 }
