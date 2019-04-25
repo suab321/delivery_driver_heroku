@@ -12,7 +12,7 @@ function notify_user(user,body){
     axios.post(`${user_server_link}/authentication/get_user`,{id:user.User_id}).then(res=>{
         console.log(res.data);
         var message={
-            to:res.data[0].device_id,
+            to:res.data.device_id,
             notification:{
                 title:"Stowaway",
                 body:body
