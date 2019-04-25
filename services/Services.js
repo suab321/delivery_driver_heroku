@@ -148,7 +148,7 @@ router.get('/pending_order',(req,res)=>{
 
 
 //route to individual orders//
-router.get('/get_order',get_token,(req,res)=>{
+router.post('/get_order',get_token,(req,res)=>{
     const user_id=decodeToken(req.token).user;
     if(user_id){
         perma.findById({_id:user_id}).then(user=>{
