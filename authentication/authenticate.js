@@ -206,6 +206,13 @@ router.post('/update/:what/:value',get_token,(req,res)=>{
                 res.status(400).json({response:"2"});
             })
                 break;
+            case 3:
+            perma.findByIdAndUpdate({_id:user_id},{Password:req.params.value},{new:true}).then(user=>{
+                res.status(200).json(user);
+            }).catch(err=>{console.log(err)
+                res.status(400).json({msg:"Error updating the field",response:"1"});
+            })
+                break;
         }
     }
 })
