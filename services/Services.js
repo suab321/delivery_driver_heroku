@@ -4,7 +4,7 @@ const router=require('express').Router();
 const axios=require('axios');
 
 //importing user made module
-const {Order,perma}=require('../database/db');
+const {Order,perma,temp}=require('../database/db');
 const {generateToken,decodeToken}=require('../jwt/jwt');
 const {user_server_link}=require('../urls/links');
 const {notify_user}=require('../FCM/Noti')
@@ -167,6 +167,15 @@ router.post('/get_order',get_token,(req,res)=>{
         res.status(400).json({msg:"You are not authenticated to use this route",response:"3"});
 })
 //route ended///
+
+//route to get pending driver///
+router.get('/get_unverified_user',(req,res)=>{
+    temp.find({}).then(user=>{
+        res.status(200).json(user);
+    }).catch(err=>{
+        console.log(err);
+    })
+})
 module.exports={
    service_route:router
 }

@@ -292,7 +292,7 @@ router.get('/order_history',get_token,(req,res)=>{
 })
 //getting order history ended//
 
-//giivng driver list users_backend
+//giivng users list users_backend
 router.get('/get_driver',(req,res)=>{
     perma.find({}).then(user=>{
         console.log(user)
