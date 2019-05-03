@@ -59,7 +59,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
         Order.find({Order_id:req.body.Order_id}).then(user=>{
             if(user){
                 if(user[0].Recevier_Otp === req.body.otp){
-                    Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3},{new:true}).then(user=>{
+                    Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3,Delivered_On:new Date()},{new:true}).then(user=>{
                         notify_user(user,`Your order has been recvied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by Driver ${user.Name}`);
                         var x=order_complete(req.body.Order_id);
                         if(x)

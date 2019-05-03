@@ -42,7 +42,8 @@ const Order_Schema=new mongoose.Schema({
     Height:String,
     Length:String,
     Width:String,
-    Order_Stamp:String
+    Order_Stamp:String,
+    Delivered_On:String
 })
 
 const temp_schema=new mongoose.Schema({
