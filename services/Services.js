@@ -153,6 +153,7 @@ router.post('/get_order',get_token,(req,res)=>{
     if(user_id){
         perma.findById({_id:user_id}).then(user=>{
             Order.findById({_id:req.body.Order_id}).then(user=>{
+                console.log(user);
                 res.status(200).json(user);
             }).catch(err=>{
                 console.log(err);
@@ -176,6 +177,20 @@ router.get('/get_unverified_user',(req,res)=>{
         console.log(err);
     })
 })
+//route ended//
+
+//route to check if user exist with this email address//
+router.get('/search_email/:email',(req,res)=>{
+    perma.findOne({Email:req.params.email}).then(user=>{
+        if(user)
+            res.status(200).json({msg:"yes"});
+        else
+            res.status(400).json({msg:"cant find"});
+    }).catch(err=>{
+        res.status(400).json({msg:"cant find"})
+    })
+})
+//route ended
 module.exports={
    service_route:router
 }
