@@ -43,7 +43,8 @@ const Order_Schema=new mongoose.Schema({
     Length:String,
     Width:String,
     Order_Stamp:String,
-    Delivered_On:String
+    Delivered_On:String,
+    Delivery_Date:String
 })
 
 const temp_schema=new mongoose.Schema({
