@@ -59,7 +59,7 @@ function connection(port){
             db.Length=data.Length;
             db.Width=data.Width;
             db.Date=new Date();
-            db.Delivery_Date_user=data.Delivery_Date
+            db.Delivery_Date_User=data.Delivery_Date_User;
             db.Order_Stamp=Date.now();
             db.save().then(user=>{
                 notify_user(user,`Your Order was accepted by ${user.Name} is on his way.Contact him on ${user.Phone}`);
