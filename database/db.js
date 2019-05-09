@@ -3,9 +3,10 @@
 const mongoose=require('mongoose');
 
 
+const {mongourl}=require('../urls/links');
 
-const mongourl="mongodb://suab:Suab123@cluster0-shard-00-00-ynffd.mongodb.net:27017,cluster0-shard-00-01-ynffd.mongodb.net:27017,cluster0-shard-00-02-ynffd.mongodb.net:27017/delivery_driver?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
-mongoose.connect(mongourl,{useNewUrlParser:true},(err,db)=>{
+
+mongoose.connect(mongourl,{useNewUrlParser:true,useCreateIndex:true},(err,db)=>{
     if(err)
         console.log("db.js 11"+err);
     else
@@ -44,7 +45,8 @@ const Order_Schema=new mongoose.Schema({
     Width:String,
     Order_Stamp:String,
     Delivered_On:String,
-    Delivery_Date_User:String
+    Delivery_Date_User:String,
+    photo_id:String
 })
 
 const temp_schema=new mongoose.Schema({
@@ -79,5 +81,4 @@ module.exports={
     temp:temp_model,
     perma:perma_model,
     Order,
-    mongourl
 }

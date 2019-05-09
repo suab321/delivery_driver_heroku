@@ -5,18 +5,19 @@ const app=express();
 const session=require('express-session');
 const mongoose=require('mongoose');
 const MongoStore=require('connect-mongo')(session);
-const {mongourl}=require('./database/db');
 const cookieparser=require('cookie-parser');
 
 
 //importing from developer made folder
 const {auth_route}=require('./authentication/authenticate');
 const {service_route}=require('./services/Services');
+const {upload_route}=require('./photo_upload/photo_upload');
 const sck=require('./sockets/socket_fucn');
+const {mongourl}=require('./urls/links')
 
 
 //mongoose connection
-mongoose.connect(mongourl,{useNewUrlParser:true},(err,db)=>{
+mongoose.connect(mongourl,{useNewUrlParser:true,useCreateIndex:true},(err,db)=>{
     if(err)
         console.log("server.js 15"+err);
 })
@@ -40,6 +41,7 @@ app.use(cookieparser());
 //setting route name for import routes
 app.use('/services',service_route);
 app.use('/authentication',auth_route);
+app.use('/photo',upload_route);
 
 app.get('/',(req,res)=>{
     res.sendFile(__dirname+'/views/delivery.html');
