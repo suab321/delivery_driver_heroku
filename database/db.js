@@ -58,6 +58,7 @@ const temp_schema=new mongoose.Schema({
     IMEI:{type:String},
     Flag:{type:Number,default:0},
     Date:{type:Date},
+    Account_Id:String,
     response:{type:String},
 })
 const perma_schema=new mongoose.Schema({
@@ -69,6 +70,7 @@ const perma_schema=new mongoose.Schema({
     IMEI:{type:String},
     Flag:{type:Number,default:0},
     Date:{type:Date},
+    Account_Id:String,
     response:{type:String},
     History:[{Order_id:String,CurrentStatus:{type:Number,default:0}}]
 })
