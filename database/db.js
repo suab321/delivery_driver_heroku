@@ -46,7 +46,8 @@ const Order_Schema=new mongoose.Schema({
     Order_Stamp:String,
     Delivered_On:String,
     Delivery_Date_User:String,
-    photo_id:String
+    photo_id:String,
+    isPaid:{type:Boolean,default:false}
 })
 
 const temp_schema=new mongoose.Schema({

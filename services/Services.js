@@ -6,7 +6,7 @@ const axios=require('axios');
 //importing user made module
 const {Order,perma,temp}=require('../database/db');
 const {generateToken,decodeToken}=require('../jwt/jwt');
-const {user_server_link}=require('../urls/links');
+const {user_server_link,admin_link}=require('../urls/links');
 const {notify_user}=require('../FCM/Noti')
 
 const get_token=(req,res,next)=>{
@@ -62,8 +62,14 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3,Delivered_On:new Date()},{new:true}).then(user=>{
                         notify_user(user,`Your order has been recvied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by Driver ${user.Name}`);
                         var x=order_complete(req.body.Order_id);
-                        if(x)
-                            res.status(200).json({response:"0"});
+                        if(x){
+                            const admin_token=generateToken(user_id);
+                            axios.post(`${admin_link}/payment/pay_to_driver`,{headers:{authorization: `Bearer ${admin_token}`}},{Order_id:req.body.Order_id}).then(res1=>{
+                                res.status(200).json({code:"1",msg:"Order is complete"});
+                            }).catch(err=>{
+                                console.log(err);
+                                res.status(400).json({code:"2",msg:"eror paying the driver"})})
+                        }
                         else
                             res.status(400).json({response:"There was an error upadting your order",response:"0"})
                     })
@@ -168,6 +174,7 @@ router.post('/get_order',get_token,(req,res)=>{
         res.status(400).json({msg:"You are not authenticated to use this route",response:"3"});
 })
 //route ended///
+
 
 //route to get pending driver///
 router.get('/get_unverified_user',(req,res)=>{
