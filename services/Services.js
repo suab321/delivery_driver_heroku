@@ -136,6 +136,7 @@ router.get('/pending_order',get_token,(req,res)=>{
 //route to get the all orders
 router.get('/order',(req,res)=>{
     Order.find({}).then(user=>{
+        user.reverse();
         res.status(200).json(user);
     })
 })
@@ -145,6 +146,7 @@ router.get('/order',(req,res)=>{
 //route to get pending orders
 router.get('/pending_order',(req,res)=>{
     Order.find({}).then(user=>{
+        user.reverse();
         res.status(200).json(user);
     }).catch(err=>{
         res.status(400).json(err);
