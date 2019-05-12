@@ -233,10 +233,8 @@ router.post('/update/:what/:value',get_token,(req,res)=>{
 
 
 //reseting password email sending
-router.get('/resetpass',get_token,(req,res)=>{
+router.get('/resetpass',(req,res)=>{
     //console.log(req.params.email);
-    const user_id=token.decodeToken(req.token).user;
-    if(user_id){
     perma.findOne({_id:user_id}).then(user=>{
         console.log(user)
         if(user){
@@ -252,9 +250,6 @@ router.get('/resetpass',get_token,(req,res)=>{
         console.log(err);
         res.status(200).json({response:"4"});
     })
-  }
-  else
-    res.status(401).json({err:"0"});
 })
 
 
