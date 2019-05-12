@@ -269,7 +269,7 @@ router.post('/ressetingdone/:token',(req,res)=>{
 
 //new password frontend after clicking on link on gmail
 router.get('/reseting/:token',(req,res)=>{
-    res.render('pass',{email:req.params.token})
+    res.render('forgetpassword',{email:req.params.token})
 })
 
 //loggingOut from mongo session
