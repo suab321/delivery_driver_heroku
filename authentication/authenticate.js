@@ -163,7 +163,7 @@ router.get('/verification/:token',(req,res)=>{
                     db. Date=new Date()
                     db.response="1"
                     db. save().then(user=>{
-                        res.render('verified',{name:user. D_Name});
+                        res.sendFile(__dirname+"../public/thank.html");
                     })
                 })
             }
