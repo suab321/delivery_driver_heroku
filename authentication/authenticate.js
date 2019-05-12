@@ -262,7 +262,7 @@ router.get('/resetpass',get_token,(req,res)=>{
 router.post('/ressetingdone/:token',(req,res)=>{
     jwt.verify(req.params.token,"suab",(err,authdata)=>{
         perma.findOneAndUpdate({Email:authdata.user},{Password:req.body.password},{new:true}).then(user=>{
-            res.status(200).json({msg:"Success"});
+            res.render('notify');
         }).catch(err=>{res.send(req.params.email)})
     })
 })
