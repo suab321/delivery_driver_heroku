@@ -63,7 +63,7 @@ const resetpass=(email,token,Name)=>{
         to:email,
         subject:"Reset your Stowaway Account Password by verifying the link",
         text:"Click the link for restting password",
-        html:'<h3>Hi '+Name+' </h3><p>You recently requested to reset your password for your Stowaway account.Click on the link to reset your password<a href="https://floating-brushlands-52313.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a>Or please copy paste the above URL into your web browser</p><br><p>Thanks,</p>Team Stowaway</p>'
+        html:'<h3>Hi '+Name+' </h3><p>You recently requested to reset your password for your Stowaway account.Click on the link below to reset your password</p><p><a href="https://floating-brushlands-52313.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a></p><p>Or, Please copy and paste the above URL into your web browser.</p><br><p>Thanks,<br>Team Stowaway</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
