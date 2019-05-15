@@ -37,13 +37,13 @@ const transporter= nodemailer.createTransport({
 })
 
 //verification link after registration
-const verfiy=(email,token)=>{
+const verfiy=(email,token,Name)=>{
     const mailoption={
         from:"stowawaysuab123@gmail.com",
         to:email,
         subject:"Activte your Stowaway Account by verifying the link",
         text:"Click the below link for verification",
-        html:'<p>Thank You and welcome to Stowaway.To activate your activate your account please click on the following link or copy and paste the link to confirm your registration:<a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a></p><p>From,<br>Team Stowaway</p>'
+        html:'<h3> Hi'+Name+' </h3><p>Thank You and welcome to Stowaway.To activate your activate your account please click on the link below to confirm your registration.</p><p><a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a></p><p>If you are having trouble clicking the link,copy and paste the URL above in your web browser</p><p>From,<br>Team Stowaway</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
