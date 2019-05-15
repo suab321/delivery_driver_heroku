@@ -255,7 +255,9 @@ router.get('/resetpass/:email',(req,res)=>{
 
 //link for new password req coming here from frontend ejs
 router.post('/ressetingdone/:token',(req,res)=>{
-    console.log(req.body.password)
+    if(req.body.password !== req.body.cpassword)
+        res.render('forgetpassword',{email:req.params.token,err:"Sorry your password does not match"});
+    else{
     jwt.verify(req.params.token,"suab",(err,authdata)=>{
         if(!err){
             perma.findOneAndUpdate({Email:authdata.user},{Password:req.body.password},{new:true}).then(user=>{
@@ -266,6 +268,7 @@ router.post('/ressetingdone/:token',(req,res)=>{
             res.status(400).json({msg:"Error upadating your password"})
         }
     })
+  }
 })
 
 //new password frontend after clicking on link on gmail
