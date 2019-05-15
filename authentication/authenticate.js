@@ -43,7 +43,7 @@ const verfiy=(email,token)=>{
         to:email,
         subject:"Activte your Stowaway Account by verifying the link",
         text:"Click the below link for verification",
-        html:'<p>Thank You and welcome to Stowaway.To activate your activate your account please click on the following link or copy and paste the link to confirm your registration:<a href="https://floating-brushlands-52313.herokuapp.com/authentication/verification/'+token+'">'+token+'</a></p><p>From,<br>Team Stowaway</p>'
+        html:'<p>Thank You and welcome to Stowaway.To activate your activate your account please click on the following link or copy and paste the link to confirm your registration:<a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a></p><p>From,<br>Team Stowaway</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
@@ -63,7 +63,7 @@ const resetpass=(email,token,Name)=>{
         to:email,
         subject:"Reset your Stowaway Account Password by verifying the link",
         text:"Click the link for restting password",
-        html:'<h3>Hi '+Name+', </h3><p>You recently requested to reset your password for your Stowaway account.Click on the link below to reset your password.</p><p><a href="https://floating-brushlands-52313.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a></p><p>Or, Please copy and paste the above URL into your web browser.</p><br><p>Thanks,<br>Team Stowaway</p>'
+        html:'<h3>Hi '+Name+', </h3><p>You recently requested to reset your password for your Stowaway account.Click on the link below to reset your password.</p><p><a href="https://fast-reef-53121.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a></p><p>Or, Please copy and paste the above URL into your web browser.</p><br><p>Thanks,<br>Team Stowaway</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
@@ -255,6 +255,7 @@ router.get('/resetpass/:email',(req,res)=>{
 
 //link for new password req coming here from frontend ejs
 router.post('/ressetingdone/:token',(req,res)=>{
+    console.log(req.body.password)
     jwt.verify(req.params.token,"suab",(err,authdata)=>{
         if(!err){
             perma.findOneAndUpdate({Email:authdata.user},{Password:req.body.password},{new:true}).then(user=>{
@@ -271,6 +272,7 @@ router.post('/ressetingdone/:token',(req,res)=>{
 router.get('/reseting/:token',(req,res)=>{
     res.render('forgetpassword',{email:req.params.token})
 })
+//route ended//
 
 //loggingOut from mongo session
 router.get('/logout',(req,res)=>{
