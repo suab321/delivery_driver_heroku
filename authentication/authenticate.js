@@ -256,9 +256,14 @@ router.get('/resetpass/:email',(req,res)=>{
 //link for new password req coming here from frontend ejs
 router.post('/ressetingdone/:token',(req,res)=>{
     jwt.verify(req.params.token,"suab",(err,authdata)=>{
-        perma.findOneAndUpdate({Email:authdata.user},{Password:req.body.password},{new:true}).then(user=>{
-            res.render('notify');
-        }).catch(err=>{res.send(req.params.email)})
+        if(!err){
+            perma.findOneAndUpdate({Email:authdata.user},{Password:req.body.password},{new:true}).then(user=>{
+                res.render('notify');
+            }).catch(err=>{res.status(200).json({msg:"Error upadating password"})})
+        }
+        else{
+            res.status(400).json({msg:"Error upadating your password"})
+        }
     })
 })
 
