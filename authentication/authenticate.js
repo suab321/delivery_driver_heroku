@@ -147,7 +147,7 @@ router.get('/verification/:token',(req,res)=>{
         }
          perma.findOne({Email:authdata.user}).then(user=>{
             if(user)
-                res.status(200).json({response:"1"})
+                res.render('thank');
             else{
                 temp.findOneAndDelete({Email:authdata.user}).then(user=>{
                     const db=new perma
