@@ -106,7 +106,7 @@ router.post('/register',check,(req,res)=>{
         db.save().then(user=>{
             if(user){
                     const enc=token.generateToken(user.Email);
-                    verfiy(user.Email,enc);
+                    verfiy(user.Email,enc,user.Name);
                     res.status(200).json({response:"0"});
             }
         }).catch(err=>{
@@ -128,7 +128,7 @@ router.post('/register',check,(req,res)=>{
         db.save().then(user=>{
             if(user){
                 jwt.sign({user:user.Email},"suab",(err,token)=>{
-                    verfiy(user.Email,token);
+                    verfiy(user.Email,token,user.Name);
                     res.status(200).json({response:"0"});
                 })
             }
@@ -163,7 +163,7 @@ router.get('/verification/:token',(req,res)=>{
                     db. Date=new Date()
                     db.response="1"
                     db. save().then(user=>{
-                        res.sendFile(__dirname+"../public/thank.html");
+                        res.render("thank");
                     })
                 })
             }
