@@ -233,9 +233,9 @@ router.post('/update/:what/:value',get_token,(req,res)=>{
 
 
 //reseting password email sending
-router.get('/resetpass',(req,res)=>{
+router.get('/resetpass/:email',(req,res)=>{
     //console.log(req.params.email);
-    perma.findOne({_id:user_id}).then(user=>{
+    perma.findOne({Email:req.params.email}).then(user=>{
         console.log(user)
         if(user){
             jwt.sign({user:user.Email},"suab",(err,token)=>{
