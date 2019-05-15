@@ -57,13 +57,13 @@ const verfiy=(email,token)=>{
 }
 
 //verification link sending for resetting password
-const resetpass=(email,token)=>{
+const resetpass=(email,token,Name)=>{
     const mailoption={
         from:'test29051571833@gmail.com',
         to:email,
         subject:"Reset your Stowaway Account Password by verifying the link",
         text:"Click the link for restting password",
-        html:'<p>You recently requested to reset your password for your Stowaway account.Click on the link to reset your password<a href="https://floating-brushlands-52313.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a> After you change the accounts password you will be able to change your password and log in to your account</p>'
+        html:'<h3>Hi '+Name+' </h3><p>You recently requested to reset your password for your Stowaway account.Click on the link to reset your password<a href="https://floating-brushlands-52313.herokuapp.com/authentication/reseting/'+token+'">'+token+'</a>Or please copy paste the above URL into your web browser</p><br><p>Thanks,</p>Team Stowaway</p>'
     }
 
     transporter.sendMail(mailoption,(err,res)=>{
@@ -239,7 +239,7 @@ router.get('/resetpass/:email',(req,res)=>{
         console.log(user)
         if(user){
             jwt.sign({user:user.Email},"suab",(err,token)=>{
-                resetpass(user.Email,token);
+                resetpass(user.Email,token,user.Name);
                 res.status(200).json({response:"1"});
             })
         }
