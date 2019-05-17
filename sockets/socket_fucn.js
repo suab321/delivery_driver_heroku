@@ -61,6 +61,10 @@ function connection(port){
             db.Date=new Date();
             db.Delivery_Date_User=data.Delivery_Date_User;
             db.Order_Stamp=data.Order_Stamp;
+            db.G_Latitude=user.G_Latitude;
+            db.G_Longitude=user.G_Longitude;
+            db.R_Latitude=user.R_Latitude;
+            db.R_Longitude=user.R_Longitude;
             db.save().then(user=>{
                 notify_user(user,`Your Order was accepted by ${user.Name} is on his way.Contact him on ${user.Phone}`);
                console.log("40 func"+user);

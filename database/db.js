@@ -47,7 +47,11 @@ const Order_Schema=new mongoose.Schema({
     Delivered_On:String,
     Delivery_Date_User:String,
     photo_id:String,
-    isPaid:{type:Boolean,default:false}
+    isPaid:{type:Boolean,default:false},
+    G_Latitude:String,
+    G_Longitude:String,
+    R_Latitude:String,
+    R_Longitude:String
 })
 
 const temp_schema=new mongoose.Schema({
