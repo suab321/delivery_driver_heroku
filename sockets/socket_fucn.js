@@ -32,6 +32,7 @@ function connection(port){
                 console.log(res.data);
             })
             //io.sockets.emit("request_accepted_driver",({data,sender_unique,recevier_unique}));
+            console.log("Driver name is "+data.Name)
             io.sockets.emit("this_order_is_accepted_by_driver",{Driver_Name:data.Name,Order_id:data.Order_id,code:"1"});
             const db=new Order
             db.User_id=data.User_id;
@@ -61,10 +62,10 @@ function connection(port){
             db.Date=new Date();
             db.Delivery_Date_User=data.Delivery_Date_User;
             db.Order_Stamp=data.Order_Stamp;
-            db.G_Latitude=user.G_Latitude;
-            db.G_Longitude=user.G_Longitude;
-            db.R_Latitude=user.R_Latitude;
-            db.R_Longitude=user.R_Longitude;
+            db.G_Latitude=data.G_Latitude;
+            db.G_Longitude=data.G_Longitude;
+            db.R_Latitude=data.R_Latitude;
+            db.R_Longitude=data.R_Longitude;
             db.save().then(user=>{
                 notify_user(user,`Your Order was accepted by ${user.Name} is on his way.Contact him on ${user.Phone}`);
                console.log("40 func"+user);
