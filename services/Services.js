@@ -24,8 +24,9 @@ const get_token=(req,res,next)=>{
 router.post('/check_sender_otp',get_token,(req,res)=>{
     const user_id=decodeToken(req.token).user;
     console.log(req.body.otp);
+    console.log(req.body.Order_id)
     if(user_id){
-        Order.findOne({Order_id:req.body.Order_id}).then(user=>{
+        Order.find({Order_id:req.body.Order_id}).then(user=>{
             console.log(user)
             if(user){
                 if(user[0].Sender_Otp === req.body.otp){
