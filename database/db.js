@@ -20,7 +20,7 @@ const Order_Schema=new mongoose.Schema({
     Name:String,
     Phone:String,
     Email:String,
-    Order_id:String,
+    Order_id:{type:String,unique:true},
     Driver_id:String,
     Commodity:String,
     Receving_Address:String,
