@@ -71,7 +71,7 @@ function connection(port){
                console.log("40 func"+user);
             }).catch(err=>{
                 console.log("38 socket_fucn"+err);
-                res.status(200).json({code:"1"});
+                res.status(200).json({"response":"1"});
         });
         })
 
