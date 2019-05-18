@@ -69,12 +69,12 @@ function connection(port){
             db.save().then(user=>{
                 notify_user(user,`Your Order was accepted by ${user.Name} is on his way.Contact him on ${user.Phone}`);
                console.log("40 func"+user);
+               io.sockets.emit("this_order_is_accepted_by_driver",{Driver_Name:data.Name,Order_id:data.Order_id,"res":"1"});
             }).catch(err=>{
                 console.log("38 socket_fucn"+err);
-                res.status(200).json({"response":"1"});
+                io.sockets.emit("this_order_is_accepted_by_driver",{"res":"0"});
         });
         })
-
         connected_socket.on("driver_from_driver_driver_frontend",data=>{
             console.log(data);
             io.sockets.emit('from_driver_to_user_frontend',data);
