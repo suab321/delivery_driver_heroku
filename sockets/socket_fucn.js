@@ -20,8 +20,8 @@ function connection(port){
         connected_socket.on("request",(data)=>{
             console.log("17 socket_func"+data.Name);
             console.log("Order _id is "+data.Order_id);
-            var sender_unique=Math.floor(Math.random()*100000);
-            var recevier_unique=Math.floor(Math.random()*100000);
+            var sender_unique=Math.floor(Math.random()*100000+1000);
+            var recevier_unique=Math.floor(Math.random()*100000+1000);
             // axios.get(`${user_server_link}/socket/connected_users_list`).then(res=>{
             //     res.data.map(i=>{
             //         if(i.user_id === data.User_id)
