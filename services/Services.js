@@ -107,11 +107,19 @@ const order_complete=(Order_id)=>{
 
 //route to delete the order when a user cancels a order//
 router.get('/delete_order/:order_id',(req,res)=>{
-    Order.findOneAndDelete({Order_id:req.params.order_id}).then(user=>{
-        res.status(200).json({response:"1"});
-    }).catch(err=>{
-        res.status(400).json({response:"0"});
-    })
+    Order.findOne({Order_id:req.params.order_id}).then(user1=>{
+        if(user.CurrentStatus<3){
+            Order.findOneAndUpdate({Order_id:req.params.order_id},{CurrentStatus:4}).then(user=>{
+                res.status(200).json({response:"1"});
+            }).catch(err=>{
+                res.status(400).json({response:"0"});
+            })
+        }
+        else{
+            res.status(400).json("delivery is already done unable to cancel");
+        }
+    }).catch(err=>res.status(400).json(err))
+  
 })
 //route to delete order ended//
 
