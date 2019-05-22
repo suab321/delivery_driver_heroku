@@ -306,6 +306,7 @@ router.get('/user_details',get_token,(req,res)=>{
 //getting user's history
 router.get('/order_history',get_token,(req,res)=>{
     const user_id=token.decodeToken(req.token).user;
+    console.log(user_id)
     if(user_id){
         Order.find({Driver_id:user_id}).then(user=>{
             res.status(200).json(user);
