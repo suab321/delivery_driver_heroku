@@ -20,8 +20,8 @@ function connection(port){
         connected_socket.on("request",(data)=>{
             console.log("17 socket_func"+data.Name);
             console.log("Order _id is "+data.Order_id);
-            var sender_unique=Math.floor(Math.random()*100000+1000);
-            var recevier_unique=Math.floor(Math.random()*100000+1000);
+            var sender_unique=Math.floor(Math.random()*100000);
+            var recevier_unique=Math.floor(Math.random()*100000);
             while(sender_unique<10000){
                 sender_unique=Math.floor(Math.random()*100000);
             }
