@@ -6,7 +6,6 @@ const session=require('express-session');
 const mongoose=require('mongoose');
 const MongoStore=require('connect-mongo')(session);
 const cookieparser=require('cookie-parser');
-const cronjob=require('node-cron')
 
 
 //importing from developer made folder
