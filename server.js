@@ -6,7 +6,7 @@ const session=require('express-session');
 const mongoose=require('mongoose');
 const MongoStore=require('connect-mongo')(session);
 const cookieparser=require('cookie-parser');
-
+const cron=require('node-cron');
 
 //importing from developer made folder
 const {auth_route}=require('./authentication/authenticate');
@@ -46,7 +46,9 @@ app.use('/photo',upload_route);
 app.get('/',(req,res)=>{
     res.sendFile(__dirname+'/views/delivery.html');
 })
-
+cron.schedule('* * * * * *',()=>{
+    console.log(Math.floor(Math.random()*10000+10000));
+})
 
 const port_connection=app.listen(process.env.PORT || 3003);
 sck.connection(port_connection);
