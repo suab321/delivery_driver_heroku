@@ -131,7 +131,7 @@ router.get('/pending_order',get_token,(req,res)=>{
     if(user_id){
         perma.findById({_id:user_id}).then(user=>{
             axios.get(`${user_server_link}/authentication/pending_order`).then(res1=>{
-                res.status(200).json(res1.data);
+                res.status(200).json(res1.data.reverse());
             }).catch(err=>{console.log(err)})
         }).catch(err=>{
             res.status(400).json({msg:"You are not valid user",response:"1"});
