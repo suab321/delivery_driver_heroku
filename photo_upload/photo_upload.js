@@ -14,7 +14,7 @@ const {perma}=require('../database/db')
 //middleware function to check authorization token//
 const get_token=(req,res,next)=>{
     const header=req.headers['authorization'];
-    if(header !== undefined)
+    if(header === undefined)
         res.status(400).json({code:"2",msg:"Token required"});
     else{
         const token=header.split(' ')[1];
@@ -37,13 +37,13 @@ let storage=new GridfsStorage({
     }
 })
 
-const upload=multer({storage}).single('photo');
+const upload=multer({storage}).single('file');
 
 //route to upload phtoto//
 router.post('/upload',get_token,(req,res)=>{
     const user_id=decodeToken(req.token).user;
     if(user_id){
-    upload(req,file,err=>{
+    upload(req,res,err=>{
         console.log(req.file);
         if(err)
             res.status(400).json({code:"0",msg:"Error uploading phtot"});
@@ -65,9 +65,9 @@ router.post('/upload',get_token,(req,res)=>{
 router.get('/get_image/:filename',get_token,(req,res)=>{
     const user_id=decodeToken(req.token).user;
     if(user_id){
-       gfs.files.findOne({filename:req.params.filename}).toArray().then(file=>{
-            const readstream=gfs.createReadStream(file.filename);
-            readstre.am.pipe(res).catch(err=>console.log(err));
+       gfs.files.find({filename:req.params.filename}).toArray().then(file=>{
+            const readstream=gfs.createReadStream(file[0].filename);
+            readstream.pipe(res)
        }).catch(err=>{
            console.log(err);
            res.status(400).json({code:"0",msg:"File not found"});
@@ -77,6 +77,7 @@ router.get('/get_image/:filename',get_token,(req,res)=>{
         res.status(400).json({code:"2",msg:"Error authenticating token"});
 })
 //route ended//
+
 
 
 module.exports={

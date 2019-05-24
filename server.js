@@ -22,8 +22,8 @@ mongoose.connect(mongourl,{useNewUrlParser:true,useCreateIndex:true},(err,db)=>{
         console.log("server.js 15"+err);
 })
 //middlewares
-app.use(bodyparser.urlencoded({extended:false}));
-app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:false,limit:'50mb'}));
+app.use(bodyparser.json({limit:'50mb'}));
 app.set('view engine','ejs');
 app.use(express.static('views'));
 app.use(session({
@@ -44,11 +44,10 @@ app.use('/authentication',auth_route);
 app.use('/photo',upload_route);
 
 app.get('/',(req,res)=>{
-    res.sendFile(__dirname+'/views/delivery.html');
+    //res.sendFile(__dirname+'/views/delivery.html');
+    res.sendFile(__dirname+'/public/test.html')
 })
-cron.schedule('* * * * * *',()=>{
-    console.log(Math.floor(Math.random()*10000+10000));
-})
+
 
 const port_connection=app.listen(process.env.PORT || 3003);
 sck.connection(port_connection);
