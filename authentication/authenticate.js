@@ -86,7 +86,7 @@ const check=(req,res,next)=>{
 
 
 //registering user route
-router.post('/register',check,(req,res)=>{
+router.post('/register',(req,res)=>{
     perma.findOne({Email:req.body.Email}).then(user=>{
         if(user){
         res.status(200).json({response:"1"});
