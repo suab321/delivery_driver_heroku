@@ -61,8 +61,9 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
             if(user){
                 if(user[0].Recevier_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3,Delivered_On:new Date()},{new:true}).then(user=>{
-                        notify_user(user,`Your order has been recvied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by Driver ${user.Name}`);
-                        var x=order_complete(req.body.Order_id);
+                        notify_user(user,`Your order has been recevied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by Driver ${user.Name}`);
+                        var x=await order_complete(req.body.Order_id);
+                        console.log(x);
                         if(x){
                             const admin_token=generateToken(user_id);
                             axios.post(`${admin_link}/payment/pay_to_driver`,{headers:{authorization: `Bearer ${admin_token}`}},{Order_id:req.body.Order_id}).then(res1=>{
@@ -90,7 +91,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
 
 
 //function when the order completes//
-const order_complete=(Order_id)=>{
+async const order_complete=(Order_id)=>{
     Order.find({Order_id:Order_id},{CurrentStatus:3},{new:true}).then(user=>{
         axios.get(`${user_server_link}/authentication/order_status_update/${Order_id}/3`,{order_id:Order_id}).then(resp=>{
             if(resp.status === 200 || 304)
@@ -118,7 +119,7 @@ router.get('/delete_order/:order_id',(req,res)=>{
         else{
             res.status(400).json("delivery is already done unable to cancel");
         }
-    }).catch(err=>res.status(200).json({json:"Not accepted by driver"}))
+    }).catch(err=>res.status(200).json({json:"This order is still not accepted y driver"}))
   
 })
 //route to delete order ended//
@@ -185,7 +186,6 @@ router.post('/get_order',get_token,(req,res)=>{
         res.status(400).json({msg:"You are not authenticated to use this route",response:"3"});
 })
 //route ended///
-
 
 //route to get pending driver///
 router.get('/get_unverified_user',(req,res)=>{
