@@ -66,7 +66,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                         console.log(generateToken(user_id));
                             const admin_token=req.token;
                             console.log("going to admin for payment");
-                            res.status(200).json({code:"1",msg:"order delivered"});
+                            res.status(200).json({response:"1",msg:"order delivered"});
                             // perma.findById({_id:user_id}).then(user=>{
                             // axios.post(`${admin_link}/payment/pay_to_driver`,{Order_id:req.body.Order_id,Account_Id:user.Account_Id},{headers:{Authorization: `Bearer ${admin_token}`}}).then(res1=>{
                             //     res.status(200).json({code:"1",msg:""});
@@ -74,7 +74,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                             //     res.status(200).json({code:"1",msg:"eror paying the driver"})})
                             // }).catch(err=>{res.status(200).json({code:"1",msg:"Order is complete"})})
                     }).catch(err=>{
-                        res.status(200).json({code:"1",msg:"Order is complete"});
+                        res.status(200).json({response:"1",msg:"Order is complete"});
                     })
                 }
                 else
