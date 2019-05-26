@@ -24,7 +24,7 @@ function decodeToken(token){
         perma.findById({_id:authdata.user}).then(user=>{
             return authdata;
         }).catch(err=>{return 0;})
-        return authdata;
+        return 0;
     } catch(err){
         return 0;
     }

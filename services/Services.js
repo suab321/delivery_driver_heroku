@@ -66,10 +66,12 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                         console.log(generateToken(user_id));
                             const admin_token=req.token;
                             console.log("going to admin for payment");
-                            axios.post(`${admin_link}/payment/pay_to_driver`,{Order_id:req.body.Order_id},{headers:{Authorization: `Bearer ${admin_token}`}}).then(res1=>{
+                            perma.findById({_id:user_id}).then(user=>{
+                            axios.post(`${admin_link}/payment/pay_to_driver`,{Order_id:req.body.Order_id,Account_Id:user.Account_Id},{headers:{Authorization: `Bearer ${admin_token}`}}).then(res1=>{
                                 res.status(200).json({code:"1",msg:"Order is complete"});
                             }).catch(err=>{
                                 res.status(400).json({code:"2",msg:"eror paying the driver"})})
+                            })
                     })
                 }
                 else
