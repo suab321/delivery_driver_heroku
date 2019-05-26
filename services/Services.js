@@ -63,8 +63,8 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3,Delivered_On:new Date()},{new:true}).then(user=>{
                         notify_user(user,`Your order has been recevied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by Driver ${user.Name}`);
                         order_complete(req.body.Order_id);
-                        console.log(x);
                             const admin_token=generateToken(user_id);
+                            console.log("going to admin for payment");
                             axios.post(`${admin_link}/payment/pay_to_driver`,{headers:{authorization: `Bearer ${admin_token}`}},{Order_id:req.body.Order_id}).then(res1=>{
                                 res.status(200).json({code:"1",msg:"Order is complete"});
                             }).catch(err=>{
