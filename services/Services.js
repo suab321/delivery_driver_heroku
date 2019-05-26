@@ -166,11 +166,11 @@ router.post('/get_order',get_token,(req,res)=>{
     const user_id=decodeToken(req.token).user;
     if(user_id){
         perma.findById({_id:user_id}).then(user=>{
-            Order.findById({_id:req.body.Order_id}).then(user=>{
-                console.log(user);
+            Order.find({Order_id:req.body.Order_id}).then(user=>{
+                console.log("170 js"+user);
                 res.status(200).json(user);
             }).catch(err=>{
-                console.log(err);
+                console.log("173"+err);
                 res.status(400).json({msg:"error fetching data",response:"1"});
             })
         }).catch(err=>{
