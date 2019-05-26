@@ -62,18 +62,14 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                 if(user[0].Recevier_Otp === req.body.otp){
                     Order.findOneAndUpdate({Order_id:req.body.Order_id},{CurrentStatus:3,Delivered_On:new Date()},{new:true}).then(user=>{
                         notify_user(user,`Your order has been recevied by ${user.Recevier_Name} which was ${user.Commodity} and was delivered by Driver ${user.Name}`);
-                        var x=await order_complete(req.body.Order_id);
+                        order_complete(req.body.Order_id);
                         console.log(x);
-                        if(x){
                             const admin_token=generateToken(user_id);
                             axios.post(`${admin_link}/payment/pay_to_driver`,{headers:{authorization: `Bearer ${admin_token}`}},{Order_id:req.body.Order_id}).then(res1=>{
                                 res.status(200).json({code:"1",msg:"Order is complete"});
                             }).catch(err=>{
                                 console.log(err);
                                 res.status(400).json({code:"2",msg:"eror paying the driver"})})
-                        }
-                        else
-                            res.status(400).json({response:"There was an error upadting your order",response:"0"})
                     })
                 }
                 else
@@ -91,7 +87,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
 
 
 //function when the order completes//
-async const order_complete=(Order_id)=>{
+const order_complete=(Order_id)=>{
     Order.find({Order_id:Order_id},{CurrentStatus:3},{new:true}).then(user=>{
         axios.get(`${user_server_link}/authentication/order_status_update/${Order_id}/3`,{order_id:Order_id}).then(resp=>{
             if(resp.status === 200 || 304)
