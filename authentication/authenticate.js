@@ -278,13 +278,13 @@ router.get('/reseting/:token',(req,res)=>{
 //route ended//
 
 //loggingOut from mongo session
-router.get('/logout',(req,res)=>{
-    if(req.session.user && req.cookies.user_sid){
-        res.clearCookie('user_sid').json("LoggedOut");
-    }
-    else
-        res.status(401).json("no session is pending!")
-})
+// router.get('/logout',(req,res)=>{
+    // if(req.session.user && req.cookies.user_sid){
+        // res.clearCookie('user_sid').json("LoggedOut");
+    // }
+    // else
+        // res.status(401).json("no session is pending!")
+// })
 
 //getting_users data based on token recevied in request
 router.get('/user_details',get_token,(req,res)=>{
@@ -325,6 +325,16 @@ router.get('/get_driver',(req,res)=>{
         res.status(200).json(user)});
 })
 //route ended//
+
+//Logout
+router.get('/logout',get_token,(req,res)=>{
+	const user_id=token.decodeToken(req.token).user;
+    perma.findByIdAndUpdate({_id:user_id},{device_id:''},{new:true}).then(user=>{
+		res.status(200).res({response:"1"});
+	}).catch(err=>{
+		res.status(400).json({response:"2"});
+	})
+})
 
 
 module.exports={
