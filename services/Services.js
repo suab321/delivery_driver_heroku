@@ -74,7 +74,7 @@ router.post('/check_recevier_otp',get_token,(req,res)=>{
                             //     res.status(200).json({code:"1",msg:"eror paying the driver"})})
                             // }).catch(err=>{res.status(200).json({code:"1",msg:"Order is complete"})})
                     }).catch(err=>{
-                        res.status(200).json({response:"1",msg:"Order is complete"});
+                        res.status(200).json({response:"3",msg:"Order is complete"});
                     })
                 }
                 else

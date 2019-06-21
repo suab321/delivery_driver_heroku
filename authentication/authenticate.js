@@ -265,7 +265,7 @@ router.post('/ressetingdone/:token',(req,res)=>{
             }).catch(err=>{res.status(200).json({msg:"Error upadating password"})})
         }
         else{
-            res.status(400).json({msg:"Error upadating your password"})
+            res.render('forgetpassword',{email:req.params.token,err:"Password do not match"})
         }
     })
   }
