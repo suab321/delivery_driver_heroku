@@ -51,7 +51,7 @@ function connection(port){
             db.Recevier_Name=data.Recevier_Name;
             db.Recevier_Email=data.Recevier_Email;
             db.Price=data.Price;
-            db.Earning=data.Price*0.1;
+            db.Earning=Math.round(data.Price*0.1*100)/100;
             db.Sender_Otp=sender_unique;
             db.Recevier_Otp=recevier_unique;
             db.Weight=data.Weight
