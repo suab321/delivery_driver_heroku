@@ -41,7 +41,7 @@ const verfiy=(email,token,Name)=>{
     const mailoption={
         from:"stowawaysuab123@gmail.com",
         to:email,
-        subject:"Activte your Stowaway Account by verifying the link",
+        subject:"Activate your Stowaway Account by verifying the link",
         text:"Click the below link for verification",
         html:'<h3> Hi '+Name+', </h3><p>Thank you and welcome to Stowaway. To activate your account, please click on the link below.</p><p><a href="https://fast-reef-53121.herokuapp.com/authentication/verification/'+token+'">'+token+'</a></p><p>If you are having trouble clicking the link, copy and paste the URL above in your web browser.</p><p>Thanks,<br>Team Stowaway</p>'
     }
